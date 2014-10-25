@@ -45,13 +45,18 @@
         area to fill our catalog. Tell us which restaurant you think
         should definitely be on Munch.
       </p>
-
+      <div class="alert" ng-show="ctrl.restSuggestionMessage" ng-class="{
+                                                                          'alert-success': !ctrl.showRestSuggestionError,
+                                                                          'alert-danger': ctrl.showRestSuggestionError
+                                                                          }">
+        {{ ctrl.restSuggestionMessage }}
+      </div>
       <section>
         <angucomplete id="suggestRestauranInput"
                       placeholder="Restaurant you want on Munch"
                       pause="100"
                       selectedobject="ctrl.newRestaurant"
-                      localdata="ctrl.restaurants"
+                      localdata="ctrl.restsSuggested"
                       searchfields="name"
                       titlefield="name"
                       minlength="1"

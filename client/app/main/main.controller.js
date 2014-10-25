@@ -1,26 +1,36 @@
 'use strict';
 
 angular.module('munchApp')
-  .controller('MainCtrl', function ($scope, $http, Restaurant) {
+  .controller('MainCtrl', function ($scope, $http, socket) {
     var ctrl = this;
-    ctrl.restaurants = [];
-    ctrl.newRestaurant = "";
+    ctrl.restsSuggested = [];
+    ctrl.restSuggestionMessage= '';
+    ctrl.showRestSuggestionError = false;
+    updateRests();
 
-    Restaurant.getSuggestedRestaurants(function(restaurantsData) {
-      ctrl.restaurants = restaurantsData;
-    });
+    function updateRests() {
+      $http.get('/api/restaurantSuggestions/').success(function(restaurantsSuggested) {
+        ctrl.restsSuggested = restaurantsSuggested;
+      });
+    }
 
     ctrl.addRestaurant = function() {
-      alert("yep");
-    };
+      var restName = document.getElementById('suggestRestauranInput_value').value;
 
-    // Socket.io example
-    // $http.get('/api/things').success(function(awesomeThings) {
-    //  $scope.awesomeThings = awesomeThings;
-    //  socket.syncUpdates('thing', $scope.awesomeThings);
-    //});
-    //
-    //$scope.$on('$destroy', function () {
-    //  socket.unsyncUpdates('thing');
-    //});
+      if(restName === '') {
+        ctrl.showRestSuggestionError = true;
+        ctrl.restSuggestionMessage = 'A restaurant name is required';
+      } else {
+        $http.put('/api/restaurantSuggestions/'+restName)
+          .success(function(data, status, headers, config) {
+            ctrl.restSuggestionMessage = data;
+            ctrl.showRestSuggestionError = false;
+            updateRests();
+        }).
+          error(function(data, status, headers, config) {
+            ctrl.restSuggestionMessage = 'There was a problem with your submission... Please, try again';
+            ctrl.showRestSuggestionError = true;
+        });
+      }
+    };
   });

@@ -10,7 +10,7 @@ var RestaurantSuggestionsSchema = new Schema({
 });
 
 RestaurantSuggestionsSchema.methods.incVotes = function() {
-  this.count++;
+  this.votesCount++;
 };
 
 module.exports = mongoose.model('RestaurantSuggestions', RestaurantSuggestionsSchema);

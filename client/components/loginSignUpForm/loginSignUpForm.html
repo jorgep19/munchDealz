@@ -1,0 +1,93 @@
+<article>
+  <tabset>
+    <tab heading="Sign Up">
+      <div class="row" ng-controller="SignupCtrl">
+        <div class="col-sm-12">
+          <form class="form auth-form" name="signUpForm" ng-submit="register(signUpForm)" novalidate>
+            <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
+                                              'has-error': form.email.$invalid && submitted }">
+              <input type="email" name="email" class="form-control" ng-model="user.email"
+                     required
+                     placeholder="you@awesome.com"
+                     mongoose-error/>
+              <p class="help-block" ng-show="form.email.$error.email && submitted">
+                Doesn't look like a valid email.
+              </p>
+              <p class="help-block" ng-show="form.email.$error.required && submitted">
+                What's your email address?
+              </p>
+              <p class="help-block" ng-show="form.email.$error.mongoose">
+                {{ errors.email }}
+              </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+                                              'has-error': form.password.$invalid && submitted }">
+              <input type="password" name="password" class="form-control" ng-model="user.password"
+                     ng-minlength="3"
+                     placeholder="password"
+                     required
+                     mongoose-error/>
+              <p class="help-block"
+                 ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+                Password must be at least 3 characters.
+              </p>
+              <p class="help-block" ng-show="form.password.$error.mongoose">
+                {{ errors.password }}
+              </p>
+            </div>
+
+            <div class="pull-right">
+              <button class="btn btn-inverse btn-lg btn-login" type="submit">
+                Start Munching!
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Login">
+      <div class="row" ng-controller="LoginCtrl">
+        <div class="col-sm-12">
+          <form class="form auth-form" name="loginForm" ng-submit="login(loginForm)" novalidate>
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" ng-model="user.email" required placeholder="you@awesome.com">
+            </div>
+
+            <div class="form-group">
+              <input name="password" class="form-control" ng-model="user.password" required placeholder="password">
+            </div>
+
+            <div class="form-group has-error">
+              <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
+                Please enter your email and password.
+              </p>
+              <p class="help-block" ng-show="form.email.$error.email && submitted">
+                Please enter a valid email.
+              </p>
+
+              <p class="help-block">{{ errors.other }}</p>
+            </div>
+
+            <div class="pull-right">
+              <button class="btn btn-inverse btn-lg btn-login" type="submit">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </tab>
+  </tabset>
+
+  <hr>
+    <div ng-controller="LoginCtrl">
+      <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+        <i class="fa fa-facebook"></i> Connect with Facebook
+      </a>
+      <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+        <i class="fa fa-google-plus"></i> Connect with Google+
+      </a>
+    </div>
+  <hr>
+</article>

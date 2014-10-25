@@ -1,23 +1,10 @@
-.thing-form {
-  margin: 20px 0;
-}
-#banner {
-  border-bottom: none;
-  margin-top: -20px;
-}
-#banner h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-.hero-unit {
-  position: relative;
+.logo-container {
   padding: 15px;
   color: #777;
-  font-size: 26px;
   text-align: center;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  background: #ffffff;
+}
+.munch-desc {
+  background-color: #e7e7e7;
 }
 .footer {
   text-align: center;

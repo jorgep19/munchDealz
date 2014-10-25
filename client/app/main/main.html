@@ -1,13 +1,74 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+<header class="hero-unit">
+  <div class="col-sm-8">
+    <img src="assets/images/munch-logo.png" alt="Munch's logo">
+    <p>
+      <i>Good food, great price, right time.</i>
+    </p>
+  </div>
+
+  <div class="container col-sm-4">
+    <div class="row">
+      <div class="col-sm-12">
+        <form class="form" name="form" ng-submit="register(form)" novalidate>
+          <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
+                                              'has-error': form.email.$invalid && submitted }">
+            <input type="email" name="email" class="form-control" ng-model="user.email"
+                   required
+                   mongoose-error/>
+            <p class="help-block" ng-show="form.email.$error.email && submitted">
+              Doesn't look like a valid email.
+            </p>
+            <p class="help-block" ng-show="form.email.$error.required && submitted">
+              What's your email address?
+            </p>
+            <p class="help-block" ng-show="form.email.$error.mongoose">
+              {{ errors.email }}
+            </p>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+                                              'has-error': form.password.$invalid && submitted }">
+            <input type="password" name="password" class="form-control" ng-model="user.password"
+                   ng-minlength="3"
+                   required
+                   mongoose-error/>
+            <p class="help-block"
+               ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+              Password must be at least 3 characters.
+            </p>
+            <p class="help-block" ng-show="form.password.$error.mongoose">
+              {{ errors.password }}
+            </p>
+          </div>
+
+          <div>
+            <button class="btn btn-inverse btn-lg btn-login" type="submit">
+              Sign up
+            </button>
+            <a class="btn btn-default btn-lg btn-register" href="/login">
+              Login
+            </a>
+          </div>
+
+          <hr>
+          <div>
+            <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+              <i class="fa fa-facebook"></i> Connect with Facebook
+            </a>
+            <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+              <i class="fa fa-google-plus"></i> Connect with Google+
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <hr>
   </div>
 </header>
 
+<!-- example using socket.io
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -28,11 +89,4 @@
     </p>
   </form>
 </div>
-
-<footer class="footer">
-  <div class="container">
-      <p>Angular Fullstack v2.0.13 |
-        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
-  </div>
-</footer>
+-->

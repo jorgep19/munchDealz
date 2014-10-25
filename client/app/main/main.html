@@ -2,7 +2,7 @@
 
 <header>
 <div class="col-sm-8 logo-container">
-  <img class="img-responsive" src="assets/images/munch-logo.png" alt="Munch's logo">
+  <img class="img-responsive logo-image" src="assets/images/munch-logo.png" alt="Munch's logo">
   <h1>
     <i>Good food, great price, right time.</i>
   </h1>
@@ -15,7 +15,7 @@
 
 <article class="col-sm-12 munch-desc">
   <article class="container">
-    <article>
+    <article class="col-sm-6">
       <h1>What is Munch?</h1>
       <p>
         A new platform for posting and catching great food deals at local restaurants!
@@ -36,29 +36,31 @@
         business.
       </p>
     </article>
-    <article>w
+    <article class="col-sm-6">
+      <header>
+        <h1>Suggest a Restaurant!</h1>
+      </header>
+      <p>
+        We are currently talking to restaurants in Gainesville, FL
+        area to fill our catalog. Tell us which restaurant you think
+        should definitely be on Munch.
+      </p>
 
-    </article>
-
-    <form class="form" name="form" ng-submit="suggestRestaurant(form)" novalidate>
-      <div class="form-group">
-        <angucomplete id="restSuggestionBox"
-                      placeholder="Restaurant you want to see on Munch"
-                      pause="200"
+      <section>
+        <angucomplete id="suggestRestauranInput"
+                      placeholder="Restaurant you want on Munch"
+                      pause="100"
                       selectedobject="ctrl.newRestaurant"
                       localdata="ctrl.restaurants"
                       searchfields="name"
                       titlefield="name"
                       minlength="1"
                       inputclass="form-control form-control-small"/>
-      </div>
-
-      <div class="form-group has-error">
-        <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
-          Please enter the name of alocal restaurant
-        </p>
-      </div>
-    </form>
+      </section>
+      <button type="button" class="btn btn-default btn-lg pull-right" ng-click="ctrl.addRestaurant()">
+        Submit
+      </button>
+    </article>
   </article>
 </article>
 

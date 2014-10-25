@@ -1,27 +1,26 @@
 'use strict';
 
 angular.module('munchApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
-    $scope.awesomeThings = [];
+  .controller('MainCtrl', function ($scope, $http, Restaurant) {
+    var ctrl = this;
+    ctrl.restaurants = [];
+    ctrl.newRestaurant = "";
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);
+    Restaurant.getSuggestedRestaurants(function(restaurantsData) {
+      ctrl.restaurants = restaurantsData;
     });
 
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
-        return;
-      }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
+    ctrl.addRestaurant = function() {
+      alert("yep");
     };
 
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
-    };
-
-    $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('thing');
-    });
+    // Socket.io example
+    // $http.get('/api/things').success(function(awesomeThings) {
+    //  $scope.awesomeThings = awesomeThings;
+    //  socket.syncUpdates('thing', $scope.awesomeThings);
+    //});
+    //
+    //$scope.$on('$destroy', function () {
+    //  socket.unsyncUpdates('thing');
+    //});
   });

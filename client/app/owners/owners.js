@@ -6,6 +6,7 @@ angular.module('munchApp')
       .state('owners', {
         url: '/owners',
         templateUrl: 'app/owners/owners.html',
-        controller: 'OwnersCtrl'
+        controller: 'OwnersCtrl',
+        controllerAs: 'ownersMain'
       });
   });

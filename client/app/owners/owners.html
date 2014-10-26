@@ -1,7 +1,102 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-  <div class="col-md-12">
-  This is the owners view.
-  </div>
+<article class="col-sm-12">
+  <section class="col-sm-3">
+    <section ng-repeat="step in ownersMain.steps" ng-click="ownersMain.selectStep($index)">
+      <h3> {{ step }} </h3>
+    </section>
+  </section>
+  <section class="col-sm-9">
+    <section ng-show="ownersMain.stepIsSelected(0)">
+      <article ng-hide="ownersMain.isLoggedIn()">
+        <article ng-hide="ownersMain.showingLogin">
+          <h3>Create an account</h3>
+          <form class="form auth-form" name="signUpForm" ng-submit="ownersMain.register(signUpForm)" novalidate>
+            <div class="form-group" ng-class="{ 'has-success': signUpForm.email.$valid && ownersMain.signupSubmitted,
+                                                  'has-error': signUpForm.email.$invalid && ownersMain.signupSubmitted }">
+              <input type="email" name="email" class="form-control" ng-model="ownersMain.newUser.email"
+                     required
+                     placeholder="you@awesome.com"
+                     mongoose-error/>
+              <p class="help-block" ng-show="signUpForm.email.$error.email && ownersMain.signupSubmitted">
+                Doesn't look like a valid email.
+              </p>
+              <p class="help-block" ng-show="signUpForm.email.$error.required && ownersMain.signupSubmitted">
+                What's your email address?
+              </p>
+              <p class="help-block" ng-show="signUpForm.email.$error.mongoose">
+                {{ errors.email }}
+              </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-success': signUpForm.password.$valid && ownersMain.signupSubmitted,
+                                                  'has-error': signUpForm.password.$invalid && ownersMain.signupSubmitted }">
+              <input type="password" name="password" class="form-control" ng-model="ownersMain.newUser.password"
+                     ng-minlength="3"
+                     placeholder="password"
+                     required
+                     mongoose-error/>
+              <p class="help-block"
+                 ng-show="(signUpForm.password.$error.minlength || signUpForm.password.$error.required) && ownersMain.signupSubmitted">
+                Password must be at least 3 characters.
+              </p>
+              <p class="help-block" ng-show="signUpForm.password.$error.mongoose">
+                {{ errors.password }}
+              </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-success': signUpForm.passwordRetype.$valid && ownersMain.signupSubmitted,
+                                                  'has-error': !ownersMain.passwordMatch && ownersMain.signupSubmitted }">
+              <input type="password" name="passwordRetype" class="form-control" ng-model="ownersMain.newUser.passwordRetype"
+                     ng-minlength="3"
+                     placeholder="re-type password"
+                     required
+                     mongoose-error/>
+              <p class="help-block"
+                 ng-show="(signUpForm.password.$error.required || signUpForm.passwordRetype.$error.required || !ownersMain.passwordMatch) && ownersMain.signupSubmitted">
+                Password and re-type must match
+              </p>
+            </div>
+
+            <button class="btn btn-default btn-lg" type="submit">
+              Start Munching!
+            </button>
+
+            <a ng-click="ownersMain.showLogin()">
+              <button class="btn btn-default btn-lg">
+                Login
+              </button>
+            </a>
+          </form>
+        </article>
+        <article ng-show="ownersMain.showingLogin">
+          Login form
+        </article>
+        <hr>
+        <h3 ng-hide="ownersMain.showingLogin">Or Sign Up using your social media account </h3>
+        <h3 ng-show="ownersMain.showingLogin">Or Login using your social media account </h3>
+        <div>
+          <a class="btn btn-facebook" href="" ng-click="ownersMain.loginOauth('facebook')">
+            <i class="fa fa-facebook"></i> Connect with Facebook
+          </a>
+          <a class="btn btn-google-plus" href="" ng-click="ownersMain.loginOauth('google')">
+            <i class="fa fa-google-plus"></i> Connect with Google+
+          </a>
+        </div>
+        <hr>
+      </article>
+      <article ng-show="ownersMain.isLoggedIn()">
+        <strong>Congrats you are already logged in.. go on to the next step</strong>
+      </article>
+      <button class="pull-right btn btn-default btn-lg">Next</button>
+    </section>
+    <section ng-show="ownersMain.stepIsSelected(1)">
+      Restaurant form
+    </section>
+    <section ng-show="ownersMain.stepIsSelected(2)">
+      Inform of validation and Dashboard
+    </section>
+  </section>
+</article>
 
 <div ng-include="'components/footer/footer.html'"></div>

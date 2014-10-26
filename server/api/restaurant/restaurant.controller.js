@@ -30,7 +30,6 @@ exports.create = function(req, res) {
 
 // Updates an existing restaurant in the DB.
 exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
   Restaurant.findById(req.params.id, function (err, restaurant) {
     if (err) { return handleError(res, err); }
     if(!restaurant) { return res.send(404); }

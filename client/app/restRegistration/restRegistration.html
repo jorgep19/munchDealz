@@ -1,0 +1,72 @@
+<article class="col-sm-12" ng-controller="restRegistration as reg">
+  <h3>Register your Restaurant</h3>
+  <form class="form"
+        name="restRegistrationForm"
+        ng-submit="reg.submitRest(restRegistrationForm)"
+        novalidate>
+    <div class="form-group" ng-class="{ 'has-success': restRegistrationForm.name.$valid && reg.submitted,
+                                        'has-error': restRegistrationForm.name.$invalid && reg.submitted }">
+      <input name="name" class="form-control" ng-model="reg.restaurant.name"
+             required
+             placeholder="Restaurant Name"
+             mongoose-error/>
+      <p class="help-block" ng-show="restRegistrationForm.name.$error.required && reg.submitted">
+        Your restaurant's name is required
+      </p>
+    </div>
+    <div class="form-group" ng-class="{ 'has-success': restRegistrationForm.desc.$valid && reg.submitted }">
+      <textarea type="text" name="desc" class="form-control" ng-model="reg.restaurant.desc"
+             placeholder="Restaurant description/bio">
+      </textarea>
+    </div>
+    <div class="form-group" ng-class="{ 'has-success': restRegistrationForm.address1.$valid && reg.submitted,
+                                        'has-error': restRegistrationForm.address1.$invalid && reg.submitted }">
+      <input name="address1" class="form-control" ng-model="reg.restaurant.address1"
+             required
+             placeholder="address line 1"
+             />
+      <p class="help-block" ng-show="restRegistrationForm.address1.$error.required && reg.submitted">
+        Your restaurant's address is required
+      </p>
+    </div>
+    <div class="form-group" ng-class="{ 'has-success': restRegistrationForm.address2.$valid && reg.submitted }">
+      <input name="address2" class="form-control" ng-model="reg.restaurant.address2"
+             placeholder="address line 2"/>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group col-sm-4" ng-class="{ 'has-success': restRegistrationForm.city.$valid && reg.submitted,
+                                                   'has-error': restRegistrationForm.city.$invalid && reg.submitted }">
+        <input name="city" class="form-control" ng-model="reg.restaurant.city"
+               required
+               placeholder="City"
+          />
+        <p class="help-block" ng-show="restRegistrationForm.city.$error.required && reg.submitted">
+          Your restaurant's City is required
+        </p>
+      </div>
+      <div class="form-group col-sm-4" ng-class="{ 'has-success': restRegistrationForm.state.$valid && reg.submitted,
+                                                   'has-error': restRegistrationForm.state.$invalid && reg.submitted }">
+        <input name="state" class="form-control" ng-model="reg.restaurant.state"
+               required
+               placeholder="State"
+          />
+        <p class="help-block" ng-show="restRegistrationForm.state.$error.required && reg.submitted">
+          Your restaurant's State is required
+        </p>
+      </div>
+      <div class="form-group col-sm-4" ng-class="{ 'has-success': restRegistrationForm.zipcode.$valid && reg.submitted,
+                                                   'has-error': restRegistrationForm.zipcode.$invalid && reg.submitted }">
+      <input name="zipcode" class="form-control" ng-model="reg.restaurant.zipcode"
+             required
+             placeholder="ZIP Code"
+        />
+      <p class="help-block" ng-show="restRegistrationForm.zipcode.$error.required && reg.submitted">
+        Your restaurant's ZIP code is required
+      </p>
+      </div>
+    </div>
+    <button class="btn btn-default btn-lg" type="submit">
+      Register
+    </button>
+  </form>
+</article>

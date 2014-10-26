@@ -22,7 +22,7 @@ var RestaurantSchema = new Schema({
   ],
   workers: [
     {
-      affiliatedRestaurants: [Schema.Types.ObjectId],
+      id: [Schema.Types.ObjectId],
       name: String
     }
   ],

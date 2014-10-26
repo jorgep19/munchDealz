@@ -45,7 +45,7 @@ angular.module('munchApp')
           password: ctrl.loginUser.password
         })
           .then( function() {
-
+            $location.path('/owners');
           })
           .catch( function(err) {
             ctrl.errors.other = err.message;
@@ -71,7 +71,7 @@ angular.module('munchApp')
           password: ctrl.newUser.password
         })
           .then( function() {
-
+            $location.path('/owners');
           })
           .catch( function(err) {
             err = err.data;

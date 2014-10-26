@@ -8,10 +8,11 @@ angular.module('munchApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.isHomePage = ($location.url() === '/');
 
     $scope.logout = function() {
       Auth.logout();
-      $location.path('/login');
+      $location.path('/');
     };
 
     $scope.isActive = function(route) {

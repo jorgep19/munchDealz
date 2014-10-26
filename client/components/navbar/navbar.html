@@ -9,7 +9,13 @@
       </button>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+
+
       <ul class="nav navbar-nav">
+        
+          <a href="/">
+            <img src="/assets/images/navbar-logo.png" ng-hide="isHomePage" class="img-responsive"/>
+          </a>
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
             <a ng-href="{{item.link}}">{{item.title}}</a>
         </li>

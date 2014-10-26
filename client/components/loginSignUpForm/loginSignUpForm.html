@@ -37,6 +37,18 @@
               </p>
             </div>
 
+            <div class="form-group" ng-class="{ 'has-success': signUpForm.passwordRetype.$valid && submitted,
+                                                  'has-error': passwordMatch && submitted }">
+              <input type="password" name="passwordRetype" class="form-control" ng-model="user.passwordRetype"
+                     ng-minlength="3"
+                     placeholder="re-type password"
+                     required/>
+              <p class="help-block"
+                 ng-show="(signUpForm.password.$error.required || signUpForm.passwordRetype.$error.required || passwordMatch) && submitted">
+                Password and re-type must match
+              </p>
+            </div>
+
             <div class="pull-right">
               <button class="btn btn-default btn-lg" type="submit">
                 Start Munching!

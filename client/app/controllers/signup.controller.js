@@ -4,11 +4,17 @@ angular.module('munchApp')
   .controller('SignupCtrl', function ($scope, Auth, $location) {
     $scope.user = {};
     $scope.errors = {};
+    $scope.passwordMatch = true;
 
-    $scope.register = function(form, redirectURL) {
+    $scope.register = function(form) {
       $scope.submitted = true;
-      if(!redirectURL) {
-        redirectURL = '/';
+
+      if($scope.user.password !== $scope.user.passwordRetype) {
+        $scope.passwordMatch = false;
+        return;
+      } else if (!ctrl.newUser.password) {
+        $scope.passwordMatch = false;
+        return;
       }
 
       if(form.$valid) {
@@ -19,7 +25,7 @@ angular.module('munchApp')
         })
           .then( function() {
             // Account created, redirect to home
-            $location.path(redirectURL); // TODO sent to the map
+            $location.path('/'); // TODO sent to the map
           })
           .catch( function(err) {
             err = err.data;

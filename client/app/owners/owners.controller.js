@@ -22,14 +22,18 @@ angular.module('munchApp')
       ctrl.currentStep = newStep;
     };
 
+    ctrl.nextStep = function() {
+      ctrl.currentStep ++;
+    };
+
     ctrl.stepIsSelected = function(step) {
       return ctrl.currentStep === step;
     };
 
     ctrl.isLoggedIn = Auth.isLoggedIn;
 
-    ctrl.showLogin = function() {
-      ctrl.showingLogin = true;
+    ctrl.toggleShowLogin = function() {
+      ctrl.showingLogin = !ctrl.showingLogin ;
     };
 
     ctrl.login = function(form) {
@@ -52,7 +56,10 @@ angular.module('munchApp')
     ctrl.register = function(form) {
       ctrl.signupSubmitted = true;
 
-      if(ctrl.newUser.password !== ctrl.newUser.passwordRetype || ctrl.newUser.password !== '') {
+      if(ctrl.newUser.password !== ctrl.newUser.passwordRetype) {
+        ctrl.passwordMatch = false;
+        return;
+      } else if (!ctrl.newUser.password) {
         ctrl.passwordMatch = false;
         return;
       }
@@ -80,6 +87,7 @@ angular.module('munchApp')
     };
 
     ctrl.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
+      $window.location.href = '/auth/' + provider +'/redirect?r=/owners';
     };
+
   }]);

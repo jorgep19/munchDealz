@@ -50,8 +50,7 @@
               <input type="password" name="passwordRetype" class="form-control" ng-model="ownersMain.newUser.passwordRetype"
                      ng-minlength="3"
                      placeholder="re-type password"
-                     required
-                     mongoose-error/>
+                     required/>
               <p class="help-block"
                  ng-show="(signUpForm.password.$error.required || signUpForm.passwordRetype.$error.required || !ownersMain.passwordMatch) && ownersMain.signupSubmitted">
                 Password and re-type must match
@@ -62,15 +61,41 @@
               Start Munching!
             </button>
 
-            <a ng-click="ownersMain.showLogin()">
-              <button class="btn btn-default btn-lg">
-                Login
-              </button>
-            </a>
+            <button class="btn btn-default btn-lg" ng-click="ownersMain.toggleShowLogin()">
+              Login
+            </button>
           </form>
         </article>
         <article ng-show="ownersMain.showingLogin">
-          Login form
+          <h3>Login</h3>
+          <form class="form auth-form" name="loginForm" ng-submit="ownersMain.login(loginForm)" novalidate>
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" ng-model="ownersMain.loginUser.email" required placeholder="you@awesome.com">
+            </div>
+
+            <div class="form-group">
+              <input type="password" name="password" class="form-control" ng-model="ownersMain.loginUser.password" required placeholder="password">
+            </div>
+
+            <div class="form-group has-error">
+              <p class="help-block" ng-show="loginForm.email.$error.required || loginForm.password.$error.required && ownersMain.loginSubmitted">
+                Please enter your email and password.
+              </p>
+              <p class="help-block" ng-show="loginForm.email.$error.email && ownersMain.loginSubmitted">
+                Please enter a valid email.
+              </p>
+
+              <p class="help-block">{{ errors.other }}</p>
+            </div>
+
+            <button class="btn btn-default btn-lg" type="submit">
+              Login
+            </button>
+
+            <button class="btn btn-default btn-lg" ng-click="ownersMain.toggleShowLogin()">
+              Sign up
+            </button>
+          </form>
         </article>
         <hr>
         <h3 ng-hide="ownersMain.showingLogin">Or Sign Up using your social media account </h3>
@@ -88,13 +113,18 @@
       <article ng-show="ownersMain.isLoggedIn()">
         <strong>Congrats you are already logged in.. go on to the next step</strong>
       </article>
-      <button class="pull-right btn btn-default btn-lg">Next</button>
     </section>
     <section ng-show="ownersMain.stepIsSelected(1)">
-      Restaurant form
+      <div ng-include="'app/restRegistration/restRegistration.html'"></div>
     </section>
     <section ng-show="ownersMain.stepIsSelected(2)">
       Inform of validation and Dashboard
+    </section>
+    <section>
+      <button class="pull-right btn btn-default btn-lg" ng-click="ownersMain.nextStep()"
+              ng-hide="(ownersMain.steps.length-1) === ownersMain.currentStep">
+        Next
+      </button>
     </section>
   </section>
 </article>

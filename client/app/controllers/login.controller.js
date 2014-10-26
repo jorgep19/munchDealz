@@ -4,6 +4,7 @@ angular.module('munchApp')
   .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
     $scope.user = {};
     $scope.errors = {};
+    $scope.submitted = false;
 
     $scope.login = function(form) {
       $scope.submitted = true;
@@ -24,6 +25,6 @@ angular.module('munchApp')
     };
 
     $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
+      $window.location.href = '/auth/' + provider +'/redirect?r=/';
     };
   });

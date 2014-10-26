@@ -1,5 +1,3 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
 <article class="container">
   <section class="col-sm-3">
     <section ng-repeat="step in ownersMain.steps" ng-click="ownersMain.selectStep($index)">
@@ -118,7 +116,18 @@
       <div ng-include="'app/restRegistration/restRegistration.html'"></div>
     </section>
     <section ng-show="ownersMain.stepIsSelected(2)">
-      Inform of validation and Dashboard
+      <article  class="text-center">
+        <p>
+          Congrats you have finished the setup for your restaurant. Next our associates will take
+          care of the validation process to assure that we protect your business. In the mean time,
+          head to your dashboard to explore the power of munch and customize you restaurant's profile.
+        </p>
+        <a href="/dashboard">
+          <button class="btn btn-default">
+            Go to your dashboard!
+          </button>
+        </a>
+      </article>
     </section>
     <section>
       <button class="pull-right btn btn-default btn-lg" ng-click="ownersMain.nextStep()"

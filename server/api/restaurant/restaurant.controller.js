@@ -23,20 +23,18 @@ exports.show = function(req, res) {
 
 // Creates a new restaurant in the DB.
 exports.create = function(req, res) {
-
+  req.body.validated = false;
   Restaurant.create(req.body, function(err, restaurant) {
     if(err) { return handleError(res, err); }
 
-    console.log(restaurant);
     var userId = restaurant.workers[0].id;
     User.findById(userId, function (err, user) {
       if (err) return next(err);
 
       user.affilitiateToRestaurantId(restaurant.id);
-      
+
       user.save(function(err) {
         if (err) { return handleError(res, err); }
-        console.log(user);
       })
     });
 
@@ -66,6 +64,18 @@ exports.destroy = function(req, res) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });
+  });
+};
+
+exports.validate = function(req, res) {
+  Restaurant.findById(req.params.id, function (err, restaurant) {
+    if(err) { return handleError(res, err); }
+    if(!restaurant) { return res.send(404); }
+
+    restaurant.validated = true;
+    restaurant.save(function(err) {
+      if (err) { return handleError(res, err); }
+    })
   });
 };
 

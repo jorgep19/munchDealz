@@ -26,6 +26,7 @@ var RestaurantSchema = new Schema({
       name: String
     }
   ],
+  validated: Boolean,
   active: Boolean
 });
 

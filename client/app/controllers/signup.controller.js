@@ -25,7 +25,7 @@ angular.module('munchApp')
         })
           .then( function() {
             // Account created, redirect to home
-            $location.path('/'); // TODO sent to the map
+            $location.path('/dashboard'); // TODO sent to the map
           })
           .catch( function(err) {
             err = err.data;

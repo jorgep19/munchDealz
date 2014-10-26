@@ -4,6 +4,7 @@ angular.module('munchApp')
   .controller('OwnersCtrl', ['Auth', '$window', function (Auth, $window) {
     var ctrl = this;
 
+    ctrl.getCurrentUser = Auth.getCurrentUser;
     ctrl.showingLogin = false;
     ctrl.loginSubmitted = false;
     ctrl.signupSubmitted = false;

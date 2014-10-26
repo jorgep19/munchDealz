@@ -16,7 +16,7 @@ angular.module('munchApp')
         })
           .then( function() {
             // Logged in, redirect to home
-            $location.path('/'); // TODO sent to the map
+            $location.path('/dashboard'); // TODO sent to the map
           })
           .catch( function(err) {
             $scope.errors.other = err.message;
@@ -25,6 +25,6 @@ angular.module('munchApp')
     };
 
     $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider +'/redirect?r=/';
+      $window.location.href = '/auth/' + provider +'/redirect?r=/dashboard';
     };
   });

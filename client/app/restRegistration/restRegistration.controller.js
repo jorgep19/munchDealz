@@ -8,6 +8,7 @@ angular.module('munchApp')
     ctrl.restaurant = {};
     ctrl.restaurant.workers = [];
     ctrl.submitted = false;
+    ctrl.restaurantWasAdded = false;
 
     ctrl.submitRest = function(form) {
       ctrl.submitted = true;
@@ -17,7 +18,8 @@ angular.module('munchApp')
 
         $http.post('/api/restaurants/', ctrl.restaurant)
           .success(function(data, status, headers, config) {
-
+            ctrl.restaurant = data;
+            ctrl.restaurantWasAdded = true;
           }).
           error(function(data, status, headers, config) {
           });

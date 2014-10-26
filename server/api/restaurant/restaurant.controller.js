@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var User = require('../user/user.model');
 var Restaurant = require('./restaurant.model');
 
 // Get list of restaurants
@@ -22,8 +23,23 @@ exports.show = function(req, res) {
 
 // Creates a new restaurant in the DB.
 exports.create = function(req, res) {
+
   Restaurant.create(req.body, function(err, restaurant) {
     if(err) { return handleError(res, err); }
+
+    console.log(restaurant);
+    var userId = restaurant.workers[0].id;
+    User.findById(userId, function (err, user) {
+      if (err) return next(err);
+
+      user.affilitiateToRestaurantId(restaurant.id);
+      
+      user.save(function(err) {
+        if (err) { return handleError(res, err); }
+        console.log(user);
+      })
+    });
+
     return res.json(201, restaurant);
   });
 };
@@ -35,7 +51,7 @@ exports.update = function(req, res) {
     if(!restaurant) { return res.send(404); }
     var updated = _.merge(restaurant, req.body);
     updated.save(function (err) {
-      if (err) { return handleError(res, err); }
+
       return res.json(200, restaurant);
     });
   });

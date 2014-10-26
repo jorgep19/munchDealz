@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
-var authTypes = ['github', 'twitter', 'facebook', 'google'];
+var authTypes = ['facebook', 'google'];
 
 var UserSchema = new Schema({
   name: String,
@@ -17,7 +17,7 @@ var UserSchema = new Schema({
   salt: String,
   facebook: {},
   google: {},
-  github: {}
+  affiliatedRestaurants: [Schema.Types.ObjectId]
 });
 
 /**
@@ -142,6 +142,10 @@ UserSchema.methods = {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+  },
+
+  affilitiateToRestaurantId: function(restId) {
+    this.affiliatedRestaurants.push(restId);
   }
 };
 
